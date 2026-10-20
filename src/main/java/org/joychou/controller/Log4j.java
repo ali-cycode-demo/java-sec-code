@@ -17,7 +17,8 @@ public class Log4j {
      */
     @RequestMapping(value = "/log4j")
     public String log4j(String token) {
-        logger.error(token);
+        String sanitizedToken = token == null ? null : token.replaceAll("[\r\n]+", "");
+        logger.error(sanitizedToken);
         return token;
     }
 
@@ -27,3 +28,4 @@ public class Log4j {
     }
 
 }
+
