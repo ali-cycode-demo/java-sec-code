@@ -1,4 +1,4 @@
-# Demo workflow for Cycode CI/CD Security. Misconfigured on purpose - do not copy.
+# Demo workflow for Cycode CI/CD Security. Misconfigured on purpose - do not copy. Updated for cycode demo.
 name: Build
 
 on:
