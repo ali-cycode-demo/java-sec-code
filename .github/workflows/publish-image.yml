@@ -1,4 +1,5 @@
 # Publishes the demo app image to GitHub Container Registry so Cycode can scan it.
+# Uses plain docker commands (no third-party actions) to satisfy Cycode's CI/CD policy.
 name: Publish container image
 on:
   push:
@@ -13,13 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: ghcr.io/ali-cycode-demo/java-sec-code:latest
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+      - name: Build and push image
+        run: |
+          docker build -t ghcr.io/ali-cycode-demo/java-sec-code:latest .
+          docker push ghcr.io/ali-cycode-demo/java-sec-code:latest
+ 
