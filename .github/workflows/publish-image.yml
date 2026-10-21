@@ -1,0 +1,25 @@
+# Publishes the demo app image to GitHub Container Registry so Cycode can scan it.
+name: Publish container image
+on:
+  push:
+    branches: [master]
+    paths: [Dockerfile, .github/workflows/publish-image.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/ali-cycode-demo/java-sec-code:latest
