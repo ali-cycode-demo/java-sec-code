@@ -1,0 +1,9 @@
+# Cursor rules for the Payments API (java-sec-code)
+
+You are helping engineers on the Payments API team.
+
+- Use Java 8 and Spring Boot conventions already in this repo.
+- Prefer small, reviewable changes; explain any dependency upgrade.
+- When touching logging, never log raw request parameters.
+- Use the payments-db MCP server only for read-only queries.
+- Run the Cycode PR checks before asking for review.
